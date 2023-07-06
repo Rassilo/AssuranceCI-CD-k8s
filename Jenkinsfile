@@ -47,11 +47,11 @@ pipeline {
             }
         }
 */
-        stage('Test Reporting') {
+        /*stage('Test Reporting') {
             steps {
                 junit '**/target/surefire-reports/*.xml'
             }
-        }
+        }*/
         
         /* Uncomment and modify other stages as needed */
         
