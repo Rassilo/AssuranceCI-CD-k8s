@@ -56,7 +56,7 @@ pipeline {
         /* Uncomment and modify other stages as needed */
         
         /*
-        stage('Test Email Configuration') {
+       /* stage('Test Email Configuration') {
             steps {
                 script {
                     def response = httpRequest(
@@ -70,7 +70,7 @@ pipeline {
                     println response.content
                 }
             }
-        }
+        }*/
         
         stage('MVN SONARQUBE') {
             steps {
