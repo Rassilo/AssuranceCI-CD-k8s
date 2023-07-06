@@ -5,8 +5,8 @@ pipeline {
         stage('Git') {
             steps {
                 echo 'Getting Project From Git'
-                git branch: 'master',
-                url: 'https://Mojitoooo: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@github.com/Mojitoooo/Commercial.git'
+                git branch: 'main',
+                url: 'https://Mojitoooo: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@github.com/Mojitoooo/AssuranceCI-CD.git'
             }
         }
         
