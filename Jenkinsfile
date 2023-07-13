@@ -6,7 +6,7 @@ pipeline {
             steps {
                 echo 'Getting Project From Git'
                 git branch: 'main',
-                url: 'https://Mojitoooo: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@github.com/Mojitoooo/AssuranceCI-CD.git'
+                url: 'https://Mojitoooo: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@github.com/Mojitoooo/AssuranceCI-CD.git'
             }
         }
         
