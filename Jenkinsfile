@@ -11,16 +11,17 @@ pipeline {
         }
         
         stage('MVN CLEAN') {
-            steps {
-                script {
-                    if (isUnix()) {
-                        sh 'mvn --batch-mode clean'
-                    } else {
-                        bat 'mvn --batch-mode clean'
-                    }
-                }
+    steps {
+        script {
+            if (isUnix()) {
+                sh 'mvn --batch-mode clean -f **/pom.xml'
+            } else {
+                bat 'mvn --batch-mode clean -f **/pom.xml'
             }
         }
+    }
+}
+
         
         stage('MVN COMPILE') {
             steps {
