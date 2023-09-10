@@ -12,12 +12,12 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the project'
-                sh 'mvn -f /var/lib/jenkins/workspace/AssuranceCICD/Authenticator-Service/pom.xml clean package'
-                sh 'mvn -f /var/lib/jenkins/workspace/AssuranceCICD/Contrat-Service/pom.xml clean package'
-                sh 'mvn -f /var/lib/jenkins/workspace/AssuranceCICD/eureka-discovery-service/pom.xml clean package'
-                sh 'mvn -f /var/lib/jenkins/workspace/AssuranceCICD/Souscription-assurance-Service/pom.xml clean package'
-                sh 'mvn -f /var/lib/jenkins/workspace/AssuranceCICD/TypeAssurance-Service/pom.xml clean package'
-                
+                sh 'mvn -f \Assurance\Assurance-backend\api-gateway\pom.xml clean package'
+                sh 'mvn -f \Assurance\Assurance-backend\Authenticator-Service\pom.xml clean package'
+                sh 'mvn -f \Assurance\Assurance-backend\Contrat-Service\pom.xml clean package'
+                sh 'mvn -f \Assurance\Assurance-backend\eureka-discovery-service\pom.xml clean package'
+                sh 'mvn -f \Assurance\Assurance-backend\Souscription-assurance-Service\pom.xml clean package'
+                sh 'mvn -f \Assurance\Assurance-backend\TypeAssurance-Service\pom.xml clean package'
             }
         }
         
