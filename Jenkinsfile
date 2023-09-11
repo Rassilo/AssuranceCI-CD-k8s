@@ -9,15 +9,15 @@ pipeline {
                 url: 'https://Mojitoooo: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@github.com/Mojitoooo/AssuranceCI-CD.git'
             }
         }
-        stage('Build') {
+        stage('MVN CLEAN') {
             steps {
-                echo 'Building the project'
-                sh 'mvn -f \Assurance\Assurance-backend\api-gateway\pom.xml clean package'
-                sh 'mvn -f \Assurance\Assurance-backend\Authenticator-Service\pom.xml clean package'
-                sh 'mvn -f \Assurance\Assurance-backend\Contrat-Service\pom.xml clean package'
-                sh 'mvn -f \Assurance\Assurance-backend\eureka-discovery-service\pom.xml clean package'
-                sh 'mvn -f \Assurance\Assurance-backend\Souscription-assurance-Service\pom.xml clean package'
-                sh 'mvn -f \Assurance\Assurance-backend\TypeAssurance-Service\pom.xml clean package'
+                script {
+                    if (isUnix()) {
+                        sh 'mvn --batch-mode clean'
+                    } else {
+                        bat 'mvn --batch-mode clean'
+                    }
+                }
             }
         }
         
