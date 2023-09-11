@@ -9,3 +9,4 @@
 		<relativePath/> <!-- lookup parent from repository -->
         <packaging>pom</packaging>
 	</parent>
+</project>
