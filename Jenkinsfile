@@ -13,9 +13,9 @@ pipeline {
             steps {
                 script {
                     if (isUnix()) {
-                        sh 'sudo mvn --batch-mode clean'
+                        sh 'mvn --batch-mode clean'
                     } else {
-                        bat 'sudo mvn --batch-mode clean'
+                        bat 'mvn --batch-mode clean'
                     }
                 }
             }
