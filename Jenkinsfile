@@ -10,16 +10,17 @@ pipeline {
             }
         }
         stage('MVN CLEAN') {
-            steps {
-                script {
-                    if (isUnix()) {
-                        sh 'mvn --batch-mode clean'
-                    } else {
-                        bat 'mvn --batch-mode clean'
-                    }
-                }
+    steps {
+        script {
+            if (isUnix()) {
+                sh '/opt/apache-maven-3.9.5/bin/mvn --batch-mode clean'
+            } else {
+                bat '/opt/apache-maven-3.9.5/bin/mvn --batch-mode clean'
             }
         }
+    }
+}
+
         
     }
 }
