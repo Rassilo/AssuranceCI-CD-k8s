@@ -20,7 +20,22 @@ pipeline {
         }
     }
 }
-
+       
+        stage('MVN COMPILE'){
+            steps{
+                script
+                    {
+                        if (isUnix()) 
+                            {
+                                sh 'mvn --batch-mode compile';
+                            }
+                        else
+                            {
+                                bat 'mvn --batch-mode compile';
+                            }
+                    }
+                 }
+        }
         
     }
 }
