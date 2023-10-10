@@ -1,8 +1,9 @@
 pipeline {
     agent any
-    tools {
-        jdk 'JAVA_HOME' 
-        maven 'Maven' 
+     environment {
+        JAVA_HOME = '/usr/lib/jvm/java-11-openjdk-11.0.17.0.8-2.el7_9.x86_64'
+        M2_HOME = '/opt/maven' 
+        PATH = "${env.JAVA_HOME}/bin:${env.M2_HOME}/bin:${env.PATH}"
     }
     stages {
         stage('Git') {
