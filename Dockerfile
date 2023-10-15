@@ -1,5 +1,5 @@
 # Uses an official OpenJDK 17 as the base image
-FROM adoptopenjdk:17-jdk-hotspot
+FROM openjdk:17-jdk
 
 # Set the working directory
 WORKDIR /var/lib/jenkins/workspace/VMTesting
