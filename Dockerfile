@@ -6,7 +6,7 @@ WORKDIR /var/lib/jenkins/workspace/VMTesting
 
 
 # Install Maven
-RUN apt-get update && apt-get install -y maven
+RUN RUN yum update -y && yum install -y maven
 
 # Copy your project files into the container
 COPY . ${WORKSPACE}
