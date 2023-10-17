@@ -12,18 +12,14 @@ RUN wget https://downloads.apache.org/maven/maven-3/3.9.5/binaries/apache-maven-
     rm -f /tmp/apache-maven-*.tar.gz
 
 # Set environment variables for Maven
-ENV MAVEN_HOME /opt/maven
+ENV MAVEN_HOME apache-maven-3.9.5
 ENV PATH ${MAVEN_HOME}/bin:${PATH}
 
 # Second stage: Use OpenJDK 17 image
 FROM openjdk:17-jdk
 
 # Copy Maven from the first stage
-COPY --from=MAVEN_BUILD /opt/maven /opt/maven
-
-# Set environment variables for Maven
-ENV MAVEN_HOME /opt/maven
-ENV PATH ${MAVEN_HOME}/bin:${PATH}
+COPY --from=MAVEN_BUILD apache-maven-3.9.5 apache-maven-3.9.5
 
 # Copy your project files into the container
 COPY . /var/lib/jenkins/workspace/VMTesting
