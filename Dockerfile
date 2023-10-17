@@ -18,6 +18,10 @@ ENV PATH ${MAVEN_HOME}/bin:${PATH}
 # Second stage: Use OpenJDK 17 image
 FROM openjdk:17-jdk
 
+# Set environment variables for Maven (in the second stage)
+ENV MAVEN_HOME /opt/apache-maven-3.9.5
+ENV PATH ${MAVEN_HOME}/bin:${PATH}
+
 # Copy Maven from the first stage
 COPY --from=MAVEN_BUILD /opt/apache-maven-3.9.5 /opt/apache-maven-3.9.5
 
@@ -29,4 +33,4 @@ WORKDIR /var/lib/jenkins/workspace/VMTesting
 RUN mvn clean install
 
 # Define the command to run your project (modify this to match your project's startup command)
-CMD CMD ["java", "-jar", "target/Assurance-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "target/Assurance-0.0.1-SNAPSHOT.jar"]
