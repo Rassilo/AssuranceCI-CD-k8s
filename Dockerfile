@@ -1,10 +1,5 @@
-# Use CentOS 7 as the base image
-FROM docker.io/library/centos:7
-
-# Update system and install Java
-RUN yum update -y && \
-    yum install -y java-17-openjdk && \
-    yum clean all
+# First stage: Use CentOS 7 to get Maven
+FROM docker.io/library/centos:7 AS MAVEN_BUILD
 
 # Install dependencies for downloading Maven
 RUN yum install -y wget
@@ -20,6 +15,16 @@ RUN wget https://downloads.apache.org/maven/maven-3/$MAVEN_VERSION/binaries/apac
 ENV MAVEN_HOME /opt/maven
 ENV PATH ${MAVEN_HOME}/bin:${PATH}
 
+# Second stage: Use OpenJDK 17 image
+FROM openjdk:17-jdk
+
+# Copy Maven from the first stage
+COPY --from=MAVEN_BUILD /opt/maven /opt/maven
+
+# Set environment variables for Maven
+ENV MAVEN_HOME /opt/maven
+ENV PATH ${MAVEN_HOME}/bin:${PATH}
+
 # Copy your project files into the container
 COPY . /var/lib/jenkins/workspace/VMTesting
 WORKDIR /var/lib/jenkins/workspace/VMTesting
@@ -28,4 +33,5 @@ WORKDIR /var/lib/jenkins/workspace/VMTesting
 RUN mvn clean install
 
 # Define the command to run your project (modify this to match your project's startup command)
-CMD ["your-startup-command"]
+CMD CMD ["java", "-jar", "target/Assurance-0.0.1-SNAPSHOT.jar"]
+
