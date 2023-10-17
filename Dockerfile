@@ -12,7 +12,7 @@ RUN wget https://downloads.apache.org/maven/maven-3/3.9.5/binaries/apache-maven-
     rm -f /tmp/apache-maven-*.tar.gz
 
 # Set environment variables for Maven
-ENV MAVEN_HOME apache-maven-3.9.5
+ENV MAVEN_HOME /opt/apache-maven-3.9.5
 ENV PATH ${MAVEN_HOME}/bin:${PATH}
 
 # Second stage: Use OpenJDK 17 image
