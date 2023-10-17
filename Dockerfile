@@ -19,7 +19,7 @@ ENV PATH ${MAVEN_HOME}/bin:${PATH}
 FROM openjdk:17-jdk
 
 # Copy Maven from the first stage
-COPY --from=MAVEN_BUILD apache-maven-3.9.5 apache-maven-3.9.5
+COPY --from=MAVEN_BUILD /opt/apache-maven-3.9.5 /opt/apache-maven-3.9.5
 
 # Copy your project files into the container
 COPY . /var/lib/jenkins/workspace/VMTesting
