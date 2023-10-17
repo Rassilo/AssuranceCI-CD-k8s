@@ -6,7 +6,7 @@ RUN yum install -y wget
 
 # Download and set up Maven
 ENV MAVEN_VERSION 3.8.3
-RUN wget https://downloads.apache.org/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz -P /tmp && \
+RUN wget https://downloads.apache.org/maven/maven-3/3.9.5/binaries/apache-maven-3.9.5-bin.tar.gz -P /tmp && \
     tar xf /tmp/apache-maven-*.tar.gz -C /opt && \
     ln -s /opt/apache-maven-$MAVEN_VERSION /opt/maven && \
     rm -f /tmp/apache-maven-*.tar.gz
