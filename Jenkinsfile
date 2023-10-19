@@ -26,12 +26,10 @@ pipeline {
                     {
                         if (isUnix()) 
                             {
-                                mvn clean install -Dmaven.compiler.source=21 -Dmaven.compiler.target=11;
                                 sh '/opt/apache-maven-3.9.5/bin/mvn --batch-mode compile';
                             }
                         else
                             {
-                                mvn clean install -Dmaven.compiler.source=21 -Dmaven.compiler.target=11;
                                 bat '/opt/apache-maven-3.9.5/bin/mvn --batch-mode compile';
                             }
                     }
