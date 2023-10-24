@@ -26,11 +26,11 @@ pipeline {
                     {
                         if (isUnix()) 
                             {
-                                sh 'mvn --batch-mode -pl !TypeAssurance-Service compile' ;
+                                sh 'mvn --batch-mode -pl '!TypeAssurance-Service' compile' ;
                             }
                         else
                             {
-                                bat 'mvn --batch-mode -pl !TypeAssurance-Service compile' ;
+                                bat 'mvn --batch-mode -pl '!TypeAssurance-Service' compile' ;
                             }
                     }
                  }
