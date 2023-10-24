@@ -48,9 +48,9 @@ pipeline {
             def mvnSonarCommand = "${mvnBaseCmd} clean compile sonar:sonar ${sonarCredentials} -pl '!TypeAssurance-Service'"
             
             if (isUnix()) {
-                sh mvnSonarCommand
+                sh 'mvnSonarCommand'
             } else {
-                bat mvnSonarCommand
+                bat 'mvnSonarCommand'
             }
         }
     }
