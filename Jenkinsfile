@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-                JAVA_HOME = '/path/to/your/java/installation'
+                JAVA_HOME = '/usr/lib/jvm/jdk-21.0.1'
             }
     stages {
         stage('Git') {
