@@ -26,11 +26,11 @@ pipeline {
                     {
                         if (isUnix()) 
                             {
-                                sh '/opt/apache-maven-3.9.5/bin/mvn --batch-mode -pl !TypeAssurance-Service compile' ;
+                                sh 'mvn --batch-mode -pl !TypeAssurance-Service compile' ;
                             }
                         else
                             {
-                                bat '/opt/apache-maven-3.9.5/bin/mvn --batch-mode -pl !TypeAssurance-Service compile' ;
+                                bat 'mvn --batch-mode -pl !TypeAssurance-Service compile' ;
                             }
                     }
                  }
