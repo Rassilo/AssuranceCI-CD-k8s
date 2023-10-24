@@ -42,7 +42,7 @@ pipeline {
         stage('MVN SONARQUBE'){
             steps{
                 echo 'Sonar static test ...';
-                sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=media';
+                sh '/opt/apache-maven-3.9.5/bin/mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=media';
             }
         }
     }
