@@ -24,6 +24,7 @@ pipeline {
             steps{
                 script
                     {
+                        echo $JAVA_HOME;
                         if (isUnix()) 
                             {
                                 sh '/opt/apache-maven-3.9.5/bin/mvn --batch-mode -pl \'!TypeAssurance-Service\' compile' ;
