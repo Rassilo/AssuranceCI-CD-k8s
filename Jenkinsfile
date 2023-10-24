@@ -39,6 +39,11 @@ pipeline {
                     }
                  }
         }
-        
+        stage('MVN SONARQUBE'){
+            steps{
+                echo 'Sonar static test ...';
+                sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=media';
+            }
+        }
     }
 }
