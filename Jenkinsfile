@@ -43,7 +43,9 @@ pipeline {
             steps{
                 echo "JAVA_HOME: ${env.JAVA_HOME}";
                 echo 'Sonar static test ...';
-                sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=media';
+                withEnv(["PATH+MAVEN=${tool 'Maven'}/bin"]) {
+                    sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=media'
+                }
             }
         }
     }
