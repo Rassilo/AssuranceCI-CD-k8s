@@ -32,6 +32,7 @@
     <maven.compiler.target>21</maven.compiler.target>
     <java.version>21</java.version>
     <sonar.java.binaries>target/classes</sonar.java.binaries>
+    <sonar.login>squ_efeace61da48d177f9e070861af4f4233964deee</sonar.login>
 </properties>
     <modules>
 	   <module>api-gateway</module>
