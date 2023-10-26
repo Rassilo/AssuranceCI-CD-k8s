@@ -39,21 +39,12 @@ pipeline {
                     }
                  }
         }
-        stage('MVN SONARQUBE') {
-    steps {
-        script {
-            echo 'Sonar static test ...'
-            def mvnBaseCmd = '/opt/apache-maven-3.9.5/bin/mvn'
-            def sonarCredentials = '-Dsonar.login=squ_efeace61da48d177f9e070861af4f4233964deee'
-            def mvnSonarCommand = "${mvnBaseCmd} clean compile sonar:sonar ${sonarCredentials} -pl '!TypeAssurance-Service'"
-            
-            if (isUnix()) {
-                sh 'mvnSonarCommand'
-            } else {
-                bat 'mvnSonarCommand'
+        stage('MVN SONARQUBE'){
+            steps{
+                echo "JAVA_HOME: ${env.JAVA_HOME}";
+                echo 'Sonar static test ...';
+                sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=media';
             }
         }
-    }
-}
     }
 }
