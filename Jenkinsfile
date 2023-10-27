@@ -30,11 +30,11 @@ pipeline {
                         echo "JAVA_HOME: ${env.JAVA_HOME}";
                         if (isUnix()) 
                             {
-                                sh '/opt/apache-maven-3.9.5/bin/mvn --batch-mode -pl \'!TypeAssurance-Service\' compile' ;
+                                sh '/opt/apache-maven-3.9.5/bin/mvn --batch-mode compile' ;
                             }
                         else
                             {
-                                bat '/opt/apache-maven-3.9.5/bin/mvn --batch-mode -pl \'!TypeAssurance-Service\' compile' ;
+                                bat '/opt/apache-maven-3.9.5/bin/mvn --batch-mode compile' ;
                             }
                     }
                  }
