@@ -40,6 +40,5 @@
 	   <module>Contrat-Service</module>
 	   <module>eureka-discovery-service</module>
 	   <module>Souscription-assurance-Service</module>
-	   <module>TypeAssurance-Service</module>
 	</modules>
 </project>
