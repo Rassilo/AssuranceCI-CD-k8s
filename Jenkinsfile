@@ -2,6 +2,7 @@ pipeline {
     agent any
     environment {
                 JAVA_HOME = '/usr/lib/jvm/jdk-21.0.1'
+                
             }
     stages {
         stage('Git') {
@@ -45,6 +46,23 @@ pipeline {
                 echo 'Sonar static test ...';
                 withEnv(["PATH+MAVEN=${tool 'maven'}/bin"]) {
                     sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=media'
+                }
+            }
+        }
+
+        stage('NEXUS DEPLOY'){
+            steps{
+                script
+                {
+                    if (isUnix()) 
+                            {
+                                sh '/opt/apache-maven-3.9.5/bin/mvn --batch-mode deploy' ;
+                            }
+                        else
+                            {
+                                bat '/opt/apache-maven-3.9.5/bin/mvn --batch-mode deploy' ;
+                            }
+                    }
                 }
             }
         }
