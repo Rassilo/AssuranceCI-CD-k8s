@@ -56,11 +56,11 @@ pipeline {
                 {
                     if (isUnix()) 
                             {
-                                sh '/opt/apache-maven-3.9.5/bin/mvn --batch-mode deploy' ;
+                                sh """mvn deploy""" ;
                             }
                         else
                             {
-                                bat '/opt/apache-maven-3.9.5/bin/mvn --batch-mode deploy' ;
+                                bat """mvn deploy""" ;
                             }
                     }
                 }
