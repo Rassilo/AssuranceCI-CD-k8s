@@ -4,6 +4,9 @@ pipeline {
                 JAVA_HOME = '/usr/lib/jvm/jdk-21.0.1'
                 
             }
+    tools {
+        maven 'Maven'
+    }
     stages {
         stage('Git') {
             steps {
