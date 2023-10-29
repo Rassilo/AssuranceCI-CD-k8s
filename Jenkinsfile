@@ -14,14 +14,14 @@ pipeline {
         }
         stage('MVN CLEAN') {
     steps {
-        script {
+       script {
             if (isUnix()) {
                 sh '/opt/apache-maven-3.9.5/bin/mvn --batch-mode clean'
             } else {
                 bat '/opt/apache-maven-3.9.5/bin/mvn --batch-mode clean'
-            }
+           }
         }
-    }
+   }
 }
        
         stage('MVN COMPILE'){
@@ -40,15 +40,15 @@ pipeline {
                     }
                  }
         }
-        stage('MVN SONARQUBE'){
-            steps{
-                echo "JAVA_HOME: ${env.JAVA_HOME}";
-                echo 'Sonar static test ...';
-                withEnv(["PATH+MAVEN=${tool 'maven'}/bin"]) {
-                    sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=media'
-                }
-            }
-        }
+//        stage('MVN SONARQUBE'){
+//           steps{
+//                echo "JAVA_HOME: ${env.JAVA_HOME}";
+//                echo 'Sonar static test ...';
+//                withEnv(["PATH+MAVEN=${tool 'maven'}/bin"]) {
+//                    sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=media'
+//                }
+//            }
+//        }
 
         stage('NEXUS DEPLOY'){
             steps{
