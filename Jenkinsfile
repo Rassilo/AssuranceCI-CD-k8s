@@ -18,6 +18,7 @@ pipeline {
         stage('MVN CLEAN') {
     steps {
        script {
+           echo "test"; 
             if (isUnix()) {
                 sh '/opt/apache-maven-3.9.5/bin/mvn --batch-mode clean'
             } else {
