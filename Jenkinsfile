@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-                JAVA_HOME = '/usr/lib/jvm/jdk-21.0.1'
+                JAVA_HOME = '/usr/lib/jvm/jdk-21-oracle-x64'
                 
             }
     tools {
