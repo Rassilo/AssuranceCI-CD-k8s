@@ -44,6 +44,31 @@ pipeline {
                     }
                  }
         }
+        stage('Build') {
+            steps {
+                // Your build steps, e.g., compiling, packaging, etc.
+                sh 'mvn clean package'  // or any build command applicable to your project
+            }
+        }
+
+        stage('Test') {
+            steps {
+                // Run your tests and generate XML reports 
+                sh 'mvn test'
+
+                // Archive JUnit test results (assuming your test results are in the target/surefire-reports directory)
+                junit 'target/surefire-reports/*.xml'
+            }
+        }
+    
+
+    post {
+        always {
+            // Publish JUnit test result reports
+            step([$class: 'JUnitResultArchiver', testResults: 'target/surefire-reports/*.xml'])
+        }
+    }
+
 //        stage('MVN SONARQUBE'){
 //           steps{
 //                echo "JAVA_HOME: ${env.JAVA_HOME}";
