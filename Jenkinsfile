@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-                JAVA_HOME = '/usr/lib/jvm/jdk-21.0.1'
+                JAVA_HOME = '/usr/lib/jvm/jdk-21-oracle-x64'
                 
             }
     tools {
@@ -18,6 +18,7 @@ pipeline {
         stage('MVN CLEAN') {
     steps {
        script {
+           echo "test"; 
             if (isUnix()) {
                 sh '/opt/apache-maven-3.9.5/bin/mvn --batch-mode clean'
             } else {
