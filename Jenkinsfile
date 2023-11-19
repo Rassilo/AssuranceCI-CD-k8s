@@ -60,14 +60,8 @@ pipeline {
                 junit 'target/surefire-reports/*.xml'
             }
         }
-    
 
-    post {
-        always {
-            // Publish JUnit test result reports
-            step([$class: 'JUnitResultArchiver', testResults: 'target/surefire-reports/*.xml'])
-        }
-    }
+   
 
 //        stage('MVN SONARQUBE'){
 //           steps{
