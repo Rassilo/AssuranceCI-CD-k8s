@@ -44,12 +44,7 @@ pipeline {
                     }
                  }
         }
-        stage('Build') {
-            steps {
-                // Your build steps, e.g., compiling, packaging, etc.
-                sh 'mvn clean package'  // or any build command applicable to your project
-            }
-        }
+
 
         stage('Test') {
             steps {
@@ -60,8 +55,6 @@ pipeline {
                 junit 'target/surefire-reports/*.xml'
             }
         }
-
-   
 
 //        stage('MVN SONARQUBE'){
 //           steps{
