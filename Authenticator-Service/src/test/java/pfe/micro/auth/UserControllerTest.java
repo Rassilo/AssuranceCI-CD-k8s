@@ -7,17 +7,20 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import static org.junit.Assert.assertEquals;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
 import pfe.micro.auth.model.Role;
 import pfe.micro.auth.model.User;
 import pfe.micro.auth.repository.UserRepository;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -28,10 +31,11 @@ public class UserControllerTest {
     private MockMvc mockMvc;
 
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
     private ObjectMapper objectMapper;
+
+    // Mocking the UserRepository
+    @MockBean
+    private UserRepository userRepository;
 
     // Sample User for testing
     private User sampleUser;
@@ -43,7 +47,10 @@ public class UserControllerTest {
         sampleUser.setUserName("testUser");
         sampleUser.setPassword("testPassword");
         sampleUser.setRole(Role.ASSUREE);
-        userRepository.save(sampleUser);
+
+        // Mock the UserRepository behavior
+        when(userRepository.save(any(User.class))).thenReturn(sampleUser);
+        when(userRepository.findByUserName("testUser")).thenReturn(java.util.Optional.of(sampleUser));
     }
 
     @Test
@@ -78,8 +85,5 @@ public class UserControllerTest {
         assertEquals("ASSUREE", retrievedUser.getRole().name());
     }
 
-
     // Add more test cases as needed for your specific requirements
-
 }
-
