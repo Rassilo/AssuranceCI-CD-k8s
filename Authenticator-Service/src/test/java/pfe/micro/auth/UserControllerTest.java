@@ -53,7 +53,7 @@ public class UserControllerTest {
         when(userRepository.save(any(User.class))).thenReturn(sampleUser);
     
         // Use Optional.of to create an Optional containing the sampleUser
-        when(userRepository.findByUserName("testUser")).thenReturn(Optional.of(sampleUser));    }
+        when(userRepository.findByUserName("testUser")).thenAnswer(invocation -> Optional.of(sampleUser));    }
     
 
     @Test
