@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import pfe.micro.auth.model.Role;
 import pfe.micro.auth.model.User;
 import pfe.micro.auth.repository.UserRepository;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -47,11 +48,13 @@ public class UserControllerTest {
         sampleUser.setUserName("testUser");
         sampleUser.setPassword("testPassword");
         sampleUser.setRole(Role.ASSUREE);
-
+    
         // Mock the UserRepository behavior
         when(userRepository.save(any(User.class))).thenReturn(sampleUser);
-        when(userRepository.findByUserName("testUser")).thenReturn(java.util.Optional.of(sampleUser));
-    }
+    
+        // Use Optional.of to create an Optional containing the sampleUser
+        when(userRepository.findByUserName("testUser")).thenReturn(Optional.of(sampleUser));    }
+    
 
     @Test
     public void testPostUser() throws Exception {
