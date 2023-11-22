@@ -20,6 +20,7 @@ import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -31,29 +32,28 @@ public class UserControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
-    private ObjectMapper objectMapper;
-
-    // Mocking the UserRepository
     @MockBean
     private UserRepository userRepository;
 
-    // Sample User for testing
-    private User sampleUser;
+    @Autowired
+    private ObjectMapper objectMapper;
 
-    @Before
-    public void setUp() {
-        // Initialize sample User
-        sampleUser = new User();
-        sampleUser.setUserName("testUser");
-        sampleUser.setPassword("testPassword");
-        sampleUser.setRole(Role.ASSUREE);
-    
-        // Mock the UserRepository behavior
-        when(userRepository.save(any(User.class))).thenReturn(sampleUser);
-    
-        // Use Optional.of to create an Optional containing the sampleUser
-        when(userRepository.findByUserName("testUser")).thenAnswer(invocation -> Optional.of(sampleUser));    }
+     // Sample User for testing
+     private User sampleUser;
+
+     @Before
+     public void setUp() {
+         // Initialize sample User
+         sampleUser = new User();
+         sampleUser.setUserName("testUser");
+         sampleUser.setPassword("testPassword");
+         sampleUser.setRole(Role.ASSUREE);
+    }
+
+    // Your test code here
+
+}
+
     
 
     @Test
