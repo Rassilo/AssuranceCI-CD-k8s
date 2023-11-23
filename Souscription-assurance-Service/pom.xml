@@ -51,7 +51,12 @@
     <version>4.12</version> <!-- or the version you prefer -->
     <scope>test</scope>
 		</dependency>
-
+		<dependency>
+    <groupId>org.mockito</groupId>
+    <artifactId>mockito-core</artifactId>
+    <version>5.7.0</version> <!-- Use the latest version -->
+    <scope>test</scope>
+		</dependency>
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
