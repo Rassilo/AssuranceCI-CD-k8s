@@ -72,11 +72,11 @@ pipeline {
                 {
                     if (isUnix()) 
                             {
-                                sh """mvn deploy -f pom.xml""" ;
+                                sh """mvn deploy""" ;
                             }
                         else
                             {
-                                bat """mvn deploy -f pom.xml""" ;
+                                bat """mvn deploy""" ;
                             }
                     }
                 }
