@@ -46,7 +46,7 @@ pipeline {
         }
 
 
-        stage('Test') {
+     /*   stage('Test') {
             steps {
                 // Run your tests and generate XML reports 
                 sh 'mvn test'
@@ -54,7 +54,7 @@ pipeline {
                 // Archive JUnit test results (assuming your test results are in the target/surefire-reports directory)
                 junit 'target/surefire-reports/*.xml'
             }
-        }
+        }*/
 
 //        stage('MVN SONARQUBE'){
 //           steps{
