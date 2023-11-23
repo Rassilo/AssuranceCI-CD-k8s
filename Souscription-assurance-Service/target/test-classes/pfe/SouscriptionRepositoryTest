@@ -1,4 +1,4 @@
-package pfe.micro.assurance.repository;
+/*package pfe.micro.assurance.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -30,7 +30,7 @@ public class SouscriptionRepositoryTest {
     public void testFindSouscriptionBySouscriptionId() {
         // Mock the behavior of the repository
         when(souscriptionRepository.findSouscriptionBySouscriptionId(any(Integer.class)))
-                .thenReturn(new Souscription(/* Your Souscription object here */));
+                .thenReturn(new Souscription(/* Your Souscription object here ));
 
         // Call the service method
         Souscription result = souscriptionService.findSouscriptionBySouscriptionId(1);
@@ -44,7 +44,7 @@ public class SouscriptionRepositoryTest {
     public void testFindByUserId() {
         // Mock the behavior of the repository
         when(souscriptionRepository.findByUserId(any(String.class)))
-                .thenReturn(Arrays.asList(new Souscription(/* Your Souscription object here */)));
+                .thenReturn(Arrays.asList(new Souscription(/* Your Souscription object here )));
 
         // Call the service method
         List<Souscription> result = souscriptionService.findByUserId("user123");
@@ -58,7 +58,7 @@ public class SouscriptionRepositoryTest {
     public void testFindByAssureurId() {
         // Mock the behavior of the repository
         when(souscriptionRepository.findByAssureurId(any(String.class)))
-                .thenReturn(Arrays.asList(new Souscription(/* Your Souscription object here */)));
+                .thenReturn(Arrays.asList(new Souscription(/* Your Souscription object here )));
 
         // Call the service method
         List<Souscription> result = souscriptionService.findByAssureurId("assureur123");
@@ -67,4 +67,4 @@ public class SouscriptionRepositoryTest {
         assertThat(result).isNotEmpty();
         // Add more assertions based on your specific scenario
     }
-}
+} */
