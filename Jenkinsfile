@@ -81,6 +81,29 @@ pipeline {
                     }
                 }
             }*/
+            stage('Deploy to Docker Hub') {
+            steps {
+                script {
+                    // Read the parent POM
+                    def parentPom = readMavenPom file: '/var/lib/jenkins/workspace/PFE/pom.xml'
+
+                    // Extract groupId and artifactId from the parent POM
+                    def groupId = parentPom.getGroupId()
+                    def artifactId = parentPom.getArtifactId()
+
+                    // Construct the Docker image name
+                    def dockerImageName = "${groupId}/${artifactId}"
+
+                    // Build and deploy the Docker image for the parent POM
+                    sh """
+                        cd /var/lib/jenkins/workspace/PFE
+                        mvn clean install
+                        docker build -t ${dockerImageName}:latest .
+                        docker push ${dockerImageName}:latest
+                    """
+                }
+            }
+        }
         }
     }
 
