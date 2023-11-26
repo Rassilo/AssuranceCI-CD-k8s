@@ -16,7 +16,7 @@ ENV MAVEN_HOME /opt/apache-maven-3.9.5
 ENV PATH ${MAVEN_HOME}/bin:${PATH}
 
 # Second stage: Use OpenJDK 17 image
-FROM openjdk:17-jdk
+FROM openjdk:21-jdk
 
 # Set environment variables for Maven (in the second stage)
 ENV MAVEN_HOME /opt/apache-maven-3.9.5
@@ -26,8 +26,8 @@ ENV PATH ${MAVEN_HOME}/bin:${PATH}
 COPY --from=MAVEN_BUILD /opt/apache-maven-3.9.5 /opt/apache-maven-3.9.5
 
 # Copy your project files into the container
-COPY . /var/lib/jenkins/workspace/VMTesting
-WORKDIR /var/lib/jenkins/workspace/VMTesting
+COPY . /var/lib/jenkins/workspace/PFE
+WORKDIR /var/lib/jenkins/workspace/PFE
 
 # Build your project
 RUN mvn clean install
