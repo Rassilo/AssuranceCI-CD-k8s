@@ -66,7 +66,7 @@ pipeline {
 //            }
 //        }
 
-        stage('NEXUS DEPLOY'){
+        /*stage('NEXUS DEPLOY'){
             steps{
                 script
                 {
@@ -80,7 +80,7 @@ pipeline {
                             }
                     }
                 }
-            }
+            }*/
         }
     }
 
