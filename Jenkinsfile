@@ -1,9 +1,11 @@
+// Import the Maven integration step
+import org.jenkinsci.plugins.pipeline.maven.util.MavenSpyLogProcessor
+
 pipeline {
     agent any
     environment {
-                JAVA_HOME = '/usr/lib/jvm/jdk-21-oracle-x64'
-                
-            }
+        JAVA_HOME = '/usr/lib/jvm/jdk-21-oracle-x64'
+    }
     tools {
         maven "maven"
     }
@@ -16,94 +18,50 @@ pipeline {
             }
         }
         stage('MVN CLEAN') {
-    steps {
-       script {
-           echo "test"; 
-            if (isUnix()) {
-                sh '/opt/apache-maven-3.9.5/bin/mvn --batch-mode clean'
-            } else {
-                bat '/opt/apache-maven-3.9.5/bin/mvn --batch-mode clean'
-           }
-        }
-   }
-}
-       
-        stage('MVN COMPILE'){
-            steps{
-                script
-                    {
-                        echo "JAVA_HOME: ${env.JAVA_HOME}";
-                        if (isUnix()) 
-                            {
-                                sh '/opt/apache-maven-3.9.5/bin/mvn --batch-mode compile' ;
-                            }
-                        else
-                            {
-                                bat '/opt/apache-maven-3.9.5/bin/mvn --batch-mode compile' ;
-                            }
-                    }
-                 }
-        }
-
-
-     /*   stage('Test') {
-            steps {
-                // Run your tests and generate XML reports 
-                sh 'mvn test'
-
-                // Archive JUnit test results (assuming your test results are in the target/surefire-reports directory)
-                junit 'target/surefire-reports/*.xml'
-            }
-        }*/
-
-//        stage('MVN SONARQUBE'){
-//           steps{
-//                echo "JAVA_HOME: ${env.JAVA_HOME}";
-//                echo 'Sonar static test ...';
-//                withEnv(["PATH+MAVEN=${tool 'maven'}/bin"]) {
-//                    sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=media'
-//                }
-//            }
-//        }
-
-        /*stage('NEXUS DEPLOY'){
-            steps{
-                script
-                {
-                    if (isUnix()) 
-                            {
-                                sh """mvn deploy -X""" ;
-                            }
-                        else
-                            {
-                                bat """mvn deploy -X""" ;
-                            }
-                    }
-                }
-            }*/
-            stage('Deploy to Docker Hub') {
             steps {
                 script {
-                    // Read the parent POM
-                    def parentPom = readMavenPom file: '/var/lib/jenkins/workspace/PFE/pom.xml'
-
-                    // Extract groupId and artifactId from the parent POM
-                    def groupId = parentPom.getGroupId()
-                    def artifactId = parentPom.getArtifactId()
+                    echo "test"; 
+                    if (isUnix()) {
+                        sh '/opt/apache-maven-3.9.5/bin/mvn --batch-mode clean'
+                    } else {
+                        bat '/opt/apache-maven-3.9.5/bin/mvn --batch-mode clean'
+                    }
+                }
+            }
+        }
+        stage('MVN COMPILE') {
+            steps {
+                script {
+                    echo "JAVA_HOME: ${env.JAVA_HOME}";
+                    if (isUnix()) {
+                        sh '/opt/apache-maven-3.9.5/bin/mvn --batch-mode compile' ;
+                    } else {
+                        bat '/opt/apache-maven-3.9.5/bin/mvn --batch-mode compile' ;
+                    }
+                }
+            }
+        }
+        stage('Deploy to Docker Hub') {
+            steps {
+                script {
+                    // Use MavenSpyLogProcessor to read Maven POM
+                    def mavenInfo = MavenSpyLogProcessor.readMavenPom()
+                    
+                    // Extract groupId and artifactId from the Maven POM
+                    def groupId = mavenInfo.getGroupId()
+                    def artifactId = mavenInfo.getArtifactId()
 
                     // Construct the Docker image name
                     def dockerImageName = "${groupId}/${artifactId}"
 
-                    // Build and deploy the Docker image for the parent POM
+                    // Build and deploy the Docker image
                     sh """
                         cd /var/lib/jenkins/workspace/PFE
-                        mvn clean install
                         docker build -t ${dockerImageName}:latest .
                         docker push ${dockerImageName}:latest
                     """
                 }
             }
         }
-        }
     }
-
+}
