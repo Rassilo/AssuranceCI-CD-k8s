@@ -16,6 +16,7 @@ pipeline {
                 git branch: 'main',
                 url: 'https://Mojitoooo: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@github.com/Mojitoooo/AssuranceCI-CD.git'
             }
+        }
             stage('Building our image') {
             steps{
                 script {
@@ -62,5 +63,4 @@ sh "docker rmi $registry:$BUILD_NUMBER"
             }
         }
     }
-}
 }
