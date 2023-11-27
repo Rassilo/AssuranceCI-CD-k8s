@@ -41,12 +41,12 @@ pipeline {
         stage('Deploy to Docker Hub') {
             steps {
                 script {
-                    // Use step function to read Maven POM
-                    def mavenInfo = step([$class: 'ReadMavenPom'])
+                    // Use readMavenPom step to read Maven POM
+                    def pom = readMavenPom file: 'pom.xml'
                     
                     // Extract groupId and artifactId from the Maven POM
-                    def groupId = mavenInfo.getGroupId()
-                    def artifactId = mavenInfo.getArtifactId()
+                    def groupId = pom.getGroupId()
+                    def artifactId = pom.getArtifactId()
 
                     // Construct the Docker image name
                     def dockerImageName = "${groupId}/${artifactId}"
