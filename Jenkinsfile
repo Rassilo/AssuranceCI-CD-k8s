@@ -1,6 +1,3 @@
-// Import the Maven integration step
-import org.jenkinsci.plugins.pipeline.maven.util.MavenSpyLogProcessor
-
 pipeline {
     agent any
     environment {
@@ -44,8 +41,8 @@ pipeline {
         stage('Deploy to Docker Hub') {
             steps {
                 script {
-                    // Use MavenSpyLogProcessor to read Maven POM
-                    def mavenInfo = MavenSpyLogProcessor.readMavenPom()
+                    // Use step function to read Maven POM
+                    def mavenInfo = step([$class: 'ReadMavenPom'])
                     
                     // Extract groupId and artifactId from the Maven POM
                     def groupId = mavenInfo.getGroupId()
