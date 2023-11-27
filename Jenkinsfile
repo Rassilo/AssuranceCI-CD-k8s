@@ -2,6 +2,9 @@ pipeline {
     agent any
     environment {
         JAVA_HOME = '/usr/lib/jvm/jdk-21-oracle-x64'
+        registry = "moetezz/moetezrepo"
+    registryCredential = 'docker-hub-credentials'
+    dockerImage = ''
     }
     tools {
         maven "maven"
@@ -13,6 +16,27 @@ pipeline {
                 git branch: 'main',
                 url: 'https://Mojitoooo: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@github.com/Mojitoooo/AssuranceCI-CD.git'
             }
+            stage('Building our image') {
+            steps{
+                script {
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                }
+                        }
+                                    }
+        stage('Deploy our image') {
+            steps{
+                script {
+                    docker.withRegistry( '', registryCredential ) {
+                dockerImage.push()
+                     }
+                 }
+             }
+        }   
+stage('Cleaning up') {
+steps{
+sh "docker rmi $registry:$BUILD_NUMBER"
+}
+}
         }
         stage('MVN CLEAN') {
             steps {
@@ -35,28 +59,6 @@ pipeline {
                     } else {
                         bat '/opt/apache-maven-3.9.5/bin/mvn --batch-mode compile' ;
                     }
-                }
-            }
-        }
-        stage('Deploy to Docker Hub') {
-            steps {
-                script {
-                    // Use readMavenPom step to read Maven POM
-                    def pom = readMavenPom file: 'pom.xml'
-                    
-                    // Extract groupId and artifactId from the Maven POM
-                    def groupId = pom.getGroupId()
-                    def artifactId = pom.getArtifactId()
-
-                    // Construct the Docker image name
-                    def dockerImageName = "${groupId}/${artifactId}"
-
-                    // Build and deploy the Docker image
-                    sh """
-                        cd /var/lib/jenkins/workspace/PFE
-                        docker build -t ${dockerImageName}:latest .
-                        docker push ${dockerImageName}:latest
-                    """
                 }
             }
         }
