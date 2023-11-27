@@ -37,7 +37,6 @@ steps{
 sh "docker rmi $registry:$BUILD_NUMBER"
 }
 }
-        }
         stage('MVN CLEAN') {
             steps {
                 script {
@@ -63,4 +62,5 @@ sh "docker rmi $registry:$BUILD_NUMBER"
             }
         }
     }
+}
 }
