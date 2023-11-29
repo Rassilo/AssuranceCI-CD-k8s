@@ -29,8 +29,5 @@ COPY --from=MAVEN_BUILD /opt/apache-maven-3.9.5 /opt/apache-maven-3.9.5
 COPY . /var/lib/jenkins/workspace/PFE
 WORKDIR /var/lib/jenkins/workspace/PFE
 
-# Build your project
-RUN mvn clean install
-
 # Define the command to run your project (modify this to match your project's startup command)
 CMD ["java", "-jar", "target/Assurance-0.0.1-SNAPSHOT.jar"]
