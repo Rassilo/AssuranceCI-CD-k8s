@@ -2,9 +2,9 @@ pipeline {
     agent any
     environment {
         JAVA_HOME = '/usr/lib/jvm/jdk-21-oracle-x64'
-        registry = "moetezz/moetezrepo"
-    registryCredential = 'docker-hub-credentials'
-    dockerImage = ''
+        registry = "moetezz/medianet"
+        registryCredential = 'docker-hub-credentials'
+        dockerImage = ''
     }
     tools {
         maven "maven"
