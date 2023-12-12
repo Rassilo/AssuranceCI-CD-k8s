@@ -62,5 +62,8 @@ sh "docker rmi $registry:$BUILD_NUMBER"
                 }
             }
         }
+        stage('Run JMeter'){
+            build job: 'Metrics'
+        }
     }
 }
