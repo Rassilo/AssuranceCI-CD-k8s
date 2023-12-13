@@ -62,6 +62,12 @@ sh "docker rmi $registry:$BUILD_NUMBER"
                 }
             }
         }
+        stage('MVN SONARQUBE'){
+            steps{
+                echo 'Sonar static test ...';
+                sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=media';
+            }
+        }
         stage('Run JMeter'){
             steps{
             build job: 'Metrics'
