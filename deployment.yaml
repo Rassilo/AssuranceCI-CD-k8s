@@ -17,5 +17,4 @@ spec:
         image: moetezz/medianet:latest  # Replace with your Docker image and tag
         ports:
         - containerPort: 8080  # Port your Spring Boot application listens on
-        imagePullSecrets:
-        - name: regcred
+      
