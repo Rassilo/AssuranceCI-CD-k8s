@@ -1,0 +1,65 @@
+version: '3.8'
+services:
+  eureka-discovery-service:
+    build:
+      context: .
+      target: eureka-discovery-service
+    ports:
+      - "8761:8761"
+
+  api-gateway:
+    build:
+      context: .
+      target: api-gateway
+    ports:
+      - "8765:8765"
+    depends_on:
+      - eureka-discovery-service
+
+  user-service:
+    build:
+      context: .
+      target: user-service
+    ports:
+      - "8085:8085"
+    depends_on:
+      - eureka-discovery-service
+
+  contrat-service:
+    build:
+      context: .
+      target: contrat-service
+    ports:
+      - "8087:8087"
+    depends_on:
+      - eureka-discovery-service
+
+  assurance-service:
+    build:
+      context: .
+      target: assurance-service
+    ports:
+      - "8086:8086"
+    depends_on:
+      - eureka-discovery-service
+
+  typeassurance-service:
+    build:
+      context: .
+      target: typeassurance-service
+    ports:
+      - "8088:8088"
+    depends_on:
+      - eureka-discovery-service
+
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: "0000"
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:

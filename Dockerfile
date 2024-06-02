@@ -1,33 +1,64 @@
-# First stage: Use CentOS 7 to get Maven
-FROM docker.io/library/centos:7 AS MAVEN_BUILD
+# Base stage for building all services
+FROM jelastic/maven:3.9.5-openjdk-21 AS build
 
-# Install dependencies for downloading Maven
-RUN yum install -y wget
+# Set the working directory
+WORKDIR /app
 
-# Download and set up Maven
-ENV MAVEN_VERSION 3.9.5
-RUN wget https://downloads.apache.org/maven/maven-3/3.9.5/binaries/apache-maven-3.9.5-bin.tar.gz -P /tmp && \
-    tar xf /tmp/apache-maven-*.tar.gz -C /opt && \
-    ln -s /opt/apache-maven-$MAVEN_VERSION /opt/maven && \
-    rm -f /tmp/apache-maven-*.tar.gz
+# Copy the main pom.xml and module pom.xml files to resolve dependencies
+COPY pom.xml ./
+COPY api-gateway/pom.xml ./api-gateway/
+COPY Authenticator-Service/pom.xml ./Authenticator-Service/
+COPY Contrat-Service/pom.xml ./Contrat-Service/
+COPY eureka-discovery-service/pom.xml ./eureka-discovery-service/
+COPY Souscription-assurance-Service/pom.xml ./Souscription-assurance-Service/
 
-# Set environment variables for Maven
-ENV MAVEN_HOME /opt/apache-maven-3.9.5
-ENV PATH ${MAVEN_HOME}/bin:${PATH}
+# Download the dependencies for each module
+RUN mvn dependency:go-offline -B
 
-# Second stage: Use OpenJDK 17 image
-FROM openjdk:21-jdk
+# Copy the rest of the project files
+COPY . .
 
-# Set environment variables for Maven (in the second stage)
-ENV MAVEN_HOME /opt/apache-maven-3.9.5
-ENV PATH ${MAVEN_HOME}/bin:${PATH}
+# Build the project
+RUN mvn clean package -DskipTests
 
-# Copy Maven from the first stage
-COPY --from=MAVEN_BUILD /opt/apache-maven-3.9.5 /opt/apache-maven-3.9.5
+# Stage for API-GATEWAY
+FROM build AS api-gateway
+WORKDIR /app
+COPY --from=build /app/api-gateway/target/*.jar app.jar
+EXPOSE 8765
+ENTRYPOINT ["java", "-jar", "app.jar"]
 
-# Copy your project files into the container
-COPY . /var/lib/jenkins/workspace/PFE
-WORKDIR /var/lib/jenkins/workspace/PFE
+# Stage for USER-SERVICE
+FROM build AS user-service
+WORKDIR /app
+COPY --from=build /app/Authenticator-Service/target/*.jar app.jar
+EXPOSE 8085
+ENTRYPOINT ["java", "-jar", "app.jar"]
 
-# Define the command to run your project (modify this to match your project's startup command)
-CMD ["java", "-jar", "target/Assurance-0.0.1-SNAPSHOT.jar"]
+# Stage for ASSURANCE-SERVICE
+FROM openjdk:21-slim AS assurance-service
+WORKDIR /app
+COPY --from=build /app/Souscription-assurance-Service/target/c*.jar app.jar
+EXPOSE 8086
+ENTRYPOINT ["java", "-jar", "app.jar"]
+
+# Stage for CONTRAT-SERVICE
+FROM openjdk:21-slim AS contrat-service
+WORKDIR /app
+COPY --from=build /app/Contrat-Service/target/*.jar app.jar
+EXPOSE 8087
+ENTRYPOINT ["java", "-jar", "app.jar"]
+
+# Stage for TYPEASSURANCE-SERVICE
+FROM openjdk:21-slim AS typeassurance-service
+WORKDIR /app
+COPY --from=build /app/TYPEASSURANCE-SERVICE/target/*.jar app.jar
+EXPOSE 8088
+ENTRYPOINT ["java", "-jar", "app.jar"]
+
+# Stage for EUREKA-DISCOVERY-SERVICE
+FROM openjdk:21-slim AS eureka-discovery-service
+WORKDIR /app
+COPY --from=build /app/eureka-discovery-service/target/*.jar app.jar
+EXPOSE 8761
+ENTRYPOINT ["java", "-jar", "app.jar"]
