@@ -1,15 +1,15 @@
-name: API Build and Deploy to GKE
+name: User Build and Deploy to GKE
 
 on:
   push:
     branches:
-      - tetetett
+      - main
 
 env:
   GCP_PROJECT: predictive-guru-425117-r4
-  IMAGE_NAME: api-service
-  DEPLOY_FILE: api-deployment.yml
-  SERVICE_FOLDER: api-gateway
+  IMAGE_NAME: user-service
+  DEPLOY_FILE: auth-deployment.yml
+  SERVICE_FOLDER: Authenticator-Service
   IMAGE_TAG: ${{ github.sha }}
 
 jobs:
