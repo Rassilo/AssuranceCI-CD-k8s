@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: user-service
-          image: gcr.io/predictive-guru-425117-r4/user-service:1
+          image: gcr.io/predictive-guru-425117-r4/user-service:latest
           ports:
             - containerPort: 8085
           env:

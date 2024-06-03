@@ -45,3 +45,4 @@ jobs:
       - name: Deploy to GKE
         run: |
           kubectl apply -f k8s/auth-deployment.yml
+          kubectl set image deployment/user-service user-service=gcr.io/predictive-guru-425117-r4/user-service:$GITHUB_SHA
