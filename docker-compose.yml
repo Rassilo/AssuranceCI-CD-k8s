@@ -2,15 +2,14 @@ version: '3.8'
 services:
   eureka-discovery-service:
     build:
-      context: .
+      context: ./eureka-discovery-service
       target: eureka-discovery-service
     ports:
       - "8761:8761"
 
   api-gateway:
     build:
-      context: .
-      target: api-gateway
+      context: ./api-gateway
     ports:
       - "8765:8765"
     depends_on:
@@ -18,12 +17,9 @@ services:
 
   user-service:
     build:
-      context: .
-      target: user-service
+      context: ./Authenticator-Service
     ports:
       - "8085:8085"
-    depends_on:
-      - eureka-discovery-service
 
   contrat-service:
     build:

@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-service
+  template:
+    metadata:
+      labels:
+        app: user-service
+    spec:
+      containers:
+        - name: user-service
+          image: gcr.io/predictive-guru-425117-r4/user-service:1
+          ports:
+            - containerPort: 8085
+          env:
+            - name: SERVICE_NAME
+              value: user-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-service
+spec:
+  ports:
+    - port: 8085
+      targetPort: 8085
+  selector:
+    app: user-service
+
+
+#  docker build --tag gcr.io/predictive-guru-425117-r4/user-service:1 ./Authenticator-Service
+#  docker push gcr.io/predictive-guru-425117-r4/user-service:1
+#  kubectl apply -f k8s/auth-deployment.yml

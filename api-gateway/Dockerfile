@@ -1,22 +1,27 @@
-# Use the official Maven image to build the project
-FROM maven:3.8.5-openjdk-21 AS build
+# Use an official Maven image to build the application
+FROM jelastic/maven:3.9.5-openjdk-21 AS build
+
+# Set the working directory
 WORKDIR /app
 
-# Copy the project files
-COPY . .
+# Copy the pom.xml and the source code
+COPY pom.xml .
+COPY src ./src
 
-# Build the project
+# Package the application
 RUN mvn clean package -DskipTests
 
-# Use the official OpenJDK image to run the application
-FROM openjdk:21-jdk-slim
+# Use an official OpenJDK runtime image to run the application
+FROM jelastic/maven:3.9.5-openjdk-21
+
+# Set the working directory
 WORKDIR /app
 
-# Copy the built jar file
-COPY --from=build /app/target/*.jar app.jar
+# Copy the packaged application from the build stage
+COPY --from=build /app/target/api-gateway-0.0.1-SNAPSHOT.jar app.jar
 
-# Expose the port the app runs on
-EXPOSE 8765
+# Expose the port the application runs on
+EXPOSE 8080
 
 # Run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]

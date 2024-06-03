@@ -5,11 +5,11 @@ WORKDIR /app
 
 # Copy the main pom.xml and module pom.xml files to resolve dependencies
 COPY pom.xml ./
-#COPY api-gateway/pom.xml ./api-gateway/
-#COPY Authenticator-Service/pom.xml ./Authenticator-Service/
-#COPY Contrat-Service/pom.xml ./Contrat-Service/
-#COPY eureka-discovery-service/pom.xml ./eureka-discovery-service/
-#COPY Souscription-assurance-Service/pom.xml ./Souscription-assurance-Service/
+COPY api-gateway/pom.xml ./api-gateway/
+COPY Authenticator-Service/pom.xml ./Authenticator-Service/
+COPY Contrat-Service/pom.xml ./Contrat-Service/
+COPY eureka-discovery-service/pom.xml ./eureka-discovery-service/
+COPY Souscription-assurance-Service/pom.xml ./Souscription-assurance-Service/
 
 # Download the dependencies for each module
 RUN mvn dependency:go-offline -B

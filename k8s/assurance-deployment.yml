@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: assurance-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: assurance-service
+  template:
+    metadata:
+      labels:
+        app: assurance-service
+    spec:
+      containers:
+        - name: assurance-service
+          image: gcr.io/predictive-guru-425117-r4/assurance-service:1
+          ports:
+            - containerPort: 8086
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: assurance-service
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 8086
+      targetPort: 8086
+  selector:
+    app: assurance-service
+
+
+#  docker build --tag gcr.io/predictive-guru-425117-r4/assurance-service:1 ./Souscription-assurance-Service
+#  docker push gcr.io/predictive-guru-425117-r4/assurance-service:1
+#  kubectl apply -f k8s/assurance-deployment.yml

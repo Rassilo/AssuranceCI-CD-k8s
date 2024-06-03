@@ -34,13 +34,6 @@
         <sonar.java.binaries>target/classes</sonar.java.binaries>
         <sonar.login>squ_efeace61da48d177f9e070861af4f4233964deee</sonar.login>
     </properties>
-    <distributionManagement>
-        <repository>
-            <id>deploymentRepo</id>
-            <name>Nexus Repository</name>
-            <url>http://localhost:8081/repository/maven-releases/</url>
-        </repository>
-    </distributionManagement>
     <modules>
         <module>api-gateway</module>
         <module>Authenticator-Service</module>
